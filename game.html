@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+  
+  
+  body{
+   background:#87CEEB
+}
+
+
+canvas {
+    border:20px solid #CBC3E3;
+    background-color: green;
+    
+}
+button {
+  color: red;
+  background-color: maroon;
+}
+</style>
+</head>
+<body>
+
+<button onclick="location.href = 'index.html';">Menu</button>
+
+  <canvas id="myCanvas" width="480" height="320"></canvas>
+  
+<script>
+
+
+     window.setInterval(
+     function () {
+         score = score + 3 ;
+         
+
+     }, 70);
+var coins = 0;
+ window.setInterval(
+     function () {
+         coins = coins + 1;
+         
+
+     }, 3000);
+
+var gameover = false 
+var grassX = 100;
+var grassY = 0;
+var grassY2 = -100
+
+
+     
+
+
+
+
+
+
+
+
+
+
+var rightnotPressed = true
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+var ballRadius = 10;
+var x = canvas.width/2;
+var y = canvas.height-30;
+var dx = 2;
+var dy = -2;
+var paddleHeight = 10;
+var paddleWidth = 100;
+var paddleX = 150;
+var paddleY = (canvas.height-paddleHeight)/2;
+var rightPressed = false;
+var leftPressed = false;
+var jumpPressed = false;
+const imag = new Image();
+ imag.onload = drawGrass;
+imag.src = "sky.jpg";
+const image = new Image();
+ image.onload = drawGrass;
+image.src = "grass.jpg";
+const img = new Image();
+img.onload = drawPaddle;
+  img.src = "dog.PNG";
+const image2 = new Image();
+ image.onload = drawGrass;
+image2.src = "grass2.jpg";
+
+document.addEventListener("keypress", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+if (paddleX = 300){
+  score = 0
+}
+if (gameover){
+score = 0
+}
+
+function keyDownHandler(e) {
+  console.log(e.key)
+    if(e.key == "Right" || e.key == "d") {
+         
+         if (paddleX == 0){
+            paddleX = 150
+            }
+             
+            else if (paddleX == 150 ){
+              paddleX =300
+            }
+        
+          
+        
+
+
+        if (paddleX < 149){
+         if (rightPressed = true){
+           paddleX = 150
+         }
+        
+        } 
+        
+        
+    }
+    else if(e.key == "Left" || e.key == "a") {
+        if (paddleX == 300){
+            paddleX = 150
+        }
+          else if (paddleX == 150){
+            paddleX = 0;
+        };
+    }
+    else if(e.key == "Up" || e.key == " ") {
+        jumpPressed = true;
+    }
+
+    
+}
+
+function keyUpHandler(e) {
+    if(e.key == "Right" || e.key == "d") {
+        rightPressed = false;
+    }
+    else if(e.key == "Left" || e.key == "a") {
+        leftPressed = false;
+    }
+    else if(e.key == "Up" || e.key == " ") {
+        jumpPressed = false;
+    }
+      
+  
+    }
+
+function drawGrass() {
+    ctx.beginPath();
+    ctx.drawImage(image, 0, grassY, 500, 300);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+  
+}
+function drawSky() {
+    ctx.beginPath();
+    ctx.drawImage(imag, 0, 0, 500,175);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+  
+}
+window.setInterval(
+     function () {
+         grassY = grassY + 1;
+         grassY2 = grassY2 + 1;
+
+if (grassY == 100){
+  grassY=20;
+
+}
+//if (grassY2 == 280){
+  //grassY2 = 0;
+//}
+     }, 1);
+
+//ctx.drawImage(image2, 0, grassY2, 500,300);//
+     
+
+function drawBall() {
+    ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.drawImage(img, paddleX, paddleY, 200,200);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawtext() {ctx.fillStyle = "red";
+ctx.font = "bold 16px Arial";
+ctx.fillText("Score:", 0, 15);
+ctx.fillText(score, 50, 15);
+ctx.fillText("Coins:", 375, 15);
+ctx.fillText(coins, 425, 15);
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawGrass();
+    drawSky();
+    drawPaddle();
+drawtext();
+
+
+
+   
+    
+    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+    }
+    if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) {
+        dy = -dy;
+    }
+      
+      
+      
+    if(rightPressed) {
+ 
+       
+        
+        
+
+      
+
+
+     
+  
+    
+      
+  
+
+}
+  
+     if(leftPressed) { 
+        
+         
+         
+         
+          
+        
+        
+    }
+    else if(jumpPressed) {
+        paddleY -= 5;
+        if (paddleY < 0){
+            paddleY = 0;
+        }
+
+
+    }
+    
+    
+    x += dx;
+    y += dy;
+
+    if (paddleX == 150)
+        if(rightPressed){ 
+    paddleX = 151
+  }
+}
+
+setInterval(draw, 1);
+
+
+
+
+
+  
+
+</script>
+<div>
+</div>
+
+
+</body>
+</html>
